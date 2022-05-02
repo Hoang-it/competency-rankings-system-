@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Home Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 align-center">
+                <img src="/image/edxops.jpg" width="80%" />
+            </div>
+            <div class="col-md-6 justify-content-left">
+                <h2 class="display-4">Welcome to DEMO - CRF™ System</h2>
+                <p class="text-left">This is an UI/UX Mockup Website of <span class="text-primary font-weight-bold">CRF™ System</span> Production-like Project for edXOps® Hybrid Bootcamp Training Program.</p>
+                <hr>
+                <p class="text-left">If you already have myCRF™ account!
+                    <a class="btn btn-success" href="/templates/login.html" th:href="@{/login}">Sign-In CRF™ Now! »</a>
+                </p>
+                <p class="text-left">Don’t have a myCRF™ Account yet?
+                    <a class="btn btn-info" href="/templates/register.html" th:href="@{/register}">Create myCRF™ Account »</a>
+                </p>
+                <hr>
+                <p class="text-left">Let's download
+                    <a class="btn btn-secondary" href="#">Database Structure</a>
+                </p>
+                <hr>
+                <p class="text-left">
+                    <span class="text-danger font-weight-bold">DEMO:</span> After signed in the CRF™ System
+                    <i>(because of all three roles are same the pages of account management)</i>
+                </p>
+                <ul class="text-left pl-4">
+                    <li>CRF™ system will be delegated a new name basing on the corresponding role.</li>
+                    <li>CRF™ system will be automatic signed in if you are not sign out.</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

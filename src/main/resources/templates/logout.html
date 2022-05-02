@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Log Out Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5 align-center bg-light">
+                <h2 class="display-4 mb-4">CREATE a new myCRF™ Account</h2>
+                <p class="text-left">
+                    To use our CRF™ Services, you need to create a new myCRF™ Account, myCRF™ account will allows you to use our services experience better.
+                </p>
+                <ul class="text-left pl-4 mb-4">
+                    <li>myCRF™ is your fantastic hotline to CRF™ system!</li>
+                    <li>CRF™ system will be automatic signed in if you are not sign out.</li>
+                    <li>myCRF™ is your fantastic hotline to CRF™ system!</li>
+                    <li>CRF™ system will be automatic signed in if you are not sign out.</li>
+                </ul>
+                <p class="text-left mb-3">
+                    If you are new to CRF™ system, please register yourself to use our services.
+                </p>
+                <p class="text-center">
+                    <a class="btn btn-outline-info p-2" href="#">Create myCRF™ Account Now</a>
+                </p>
+            </div>
+            <div class="col-md-6 justify-content-left">
+                <h2 class="display-4 mb-4">Sign-Out CRF™ system</h2>
+                <p class="text-left">
+                    You are signed out of CRF™ system, Thank you so much for choosing our services.
+                </p>
+                <p class="text-left pt-2">
+                    You can now sign-in or create new myCRF™ account then use CRF™ Services.
+                </p>
+                <hr>
+                <h4 class="">myCRF™ Account Login</h4>
+                <p class="text-left pt-3 pb-3">Sign in using myCRF™ account!</p>
+                <p class="text-left">
+                    <a class="btn btn-primary p-2" href="/templates/login.html" th:href="@{/login}">Log-in Now! »</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

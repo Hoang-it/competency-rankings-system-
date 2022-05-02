@@ -1,0 +1,165 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Update Account Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <!-- Right side content -->
+            <div class="col-md-8 justify-content-left">
+                <h2 class="display-4 mb-3">Update myCRF™ Account</h2>
+                <p class="text-left">
+                    You can now update myCRF™ account and use CRF™ Services.
+                </p>
+                <h4 class="font-weight-lighter mb-4">Start update myCRF™ account now.</h4>
+                <form th:action="@{/employee/update-account}" th:object="${employeeForm}" method="POST" id="updateForm">
+                    <div class="row justify-content-center" th:object="${employeeContactForm}">
+                        <div class="col-md-6 align-center">
+                            <div class="form-group text-success font-weight-bold" th:if="${errorMessage eq null}" th:text="${successMessage}"></div>
+                            <div class="form-group text-danger font-weight-bold" th:if="${successMessage eq null}" th:text="${errorMessage}"></div>
+                            <div class="form-group w-75">
+                                <label for="firstName">First Name:</label>
+                                <input type="text" class="form-control" th:value="${employeeForm?.firstName}" id="firstName" name="firstName" placeholder="Input First Name">
+                            </div>
+                            <div class="form-group w-75">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" th:value="${employeeForm?.lastName}" id="lastName" name="lastName" placeholder="Input Last Name">
+                            </div>
+                            <div class="form-group w-75">
+                                <label for="dateOfBirth">Date of Birth:</label>
+                                <input type="date" max="2100-12-31" min="1900-12-31" th:value="${employeeForm?.dateOfBirth}" class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Input Date of Birth">
+                            </div>
+                            <select class="form-control w-75" name="jobTitle">
+                                <option selected disabled th:value="${employeeForm?.jobTitle}" th:text="${employeeForm?.jobTitle?.jobTitleName}"></option>
+                                <option value="1">Software Engineer</option>
+                                <option value="2">Software Tester</option>
+                                <option value="3">Project Manager</option>
+                                <option value="4">Business</option>
+                                <option value="5">Analyst</option>
+                                <option value="6">Data Engineer</option>
+                                <option value="7">AI Engineer</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 align-center">
+                            <div class="form-group w-75">
+                                <label for="telephone">Mobile Number</label>
+                                <input type="text" class="form-control" th:value="${employeeContactForm?.telephone}" id="telephone" name="telephone" placeholder="Input Mobile number">
+                                <small id="phoneHelp" class="form-text text-muted">Phone format: (+84) 000 000 000</small>
+                            </div>
+                            <div class="form-group w-75">
+                                <label for="address1">Permanent Address:</label>
+                                <input type="text" class="form-control" th:value="${employeeContactForm?.address1}" id="address1" name="address1" placeholder="Input Permanent Address">
+                            </div>
+                            <div class="form-group w-75">
+                                <label for="address2">Resident Address:</label>
+                                <input type="text" class="form-control" th:value="${employeeContactForm?.address2}" id="address2" name="address2" placeholder="Input Resident Address">
+                            </div>
+                            <div class="form-group w-75">
+                                <label for="email">Email:</label>
+                                <input type="text" class="form-control" th:value="${employeeContactForm?.email}" id="email" name="email" placeholder="Input Email">
+                            </div>
+                            <div class="form-group">
+                                <div class="g-recaptcha mt-4 mb-5" th:data-sitekey="${@environment.getProperty('recaptcha.key.site')}"></div>
+                            </div>
+                            <hr>
+                            <button type="submit" class="btn btn-outline-success m-2" name="submit"
+                                    onclick="return confirm('Do you want to update your information?')">Update Account</button>
+                            <a class="btn btn-info m-2" onclick="return confirm('Are you sure you wanna cancel?')"
+                                th:href="@{'/' + ${page}}">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+<script>
+    let email = $('#email').val();
+    let phone = $('#telephone').val();
+    /* validate Email and Phone */
+    $(document).ready(function () {
+        $.validator.addMethod("checkEmail", function (email) {
+            let regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-]{2,})+\.)+([a-zA-Z0-9]{2,})+$/;
+            return regexEmail.test(email);
+        });
+        $.validator.addMethod("checkPhone", function (phone) {
+            let regexPhone = /^0+([\d]{9})$/;
+            return regexPhone.test(phone);
+        })
+    });
+
+    $('#updateForm').validate({
+        rules: {
+            firstName: {
+                required: true
+            },
+            lastName: {
+                required: true
+            },
+            dateOfBirth: {
+                required: true
+            },
+            telephone: {
+                required: true,
+                checkPhone: true
+            },
+            address1: {
+                required: true
+            },
+            address2: {
+                required: true
+            },
+            email: {
+                required: true,
+                checkEmail: true,
+                maxlength: 50
+            }
+        },
+        messages: {
+            firstName: {
+                required: "The First name is not empty!"
+            },
+            lastName: {
+                required: "The Last name is not empty!"
+            },
+            dateOfBirth: {
+                required: "The Date of Birth is not empty!"
+            },
+            telephone: {
+                required: "The Telephone is not empty!",
+                checkPhone: "Wrong Phone number format!"
+            },
+            address1: {
+                required: "The Permanent Address is not empty!"
+            },
+            address2: {
+                required: "The Resident Address is not empty!"
+            },
+            email: {
+                required: "The Email is not empty!",
+                maxlength: "Email must be less than 50 character!",
+                checkEmail: "Wrong Email format!"
+            }
+        }
+    });
+</script>
+</body>
+</html>

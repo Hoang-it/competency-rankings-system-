@@ -1,0 +1,133 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Employee Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- USER INFO -->
+            <div class="col-md-4 align-center bg-light" id="none-print" th:fragment="userInfor">
+                <h2 class="display-4 mb-4">myCRF™ Account</h2>
+                <p class="text-center">
+                    <a class="btn btn-outline-dark p-2" href="/templates/logout.html"
+                       onclick="return confirm('Are you sure you wanna log out?')" th:href="@{/logout}">Sign - Out!</a>
+                </p>
+                <div class="row justify-content-center">
+                    <img class="rounded-circle" height="200px" width="200px"
+                        th:if="${employee.getAvatar() eq null}"
+                         src="/image/MrSangChoi.jpg" />
+                    <img class="rounded-circle" height="200px" width="200px"
+                         th:unless="${employee.getAvatar() eq null}"
+                         th:src="'data:image/jpeg;base64,' + ${employee.convertImageToString()}"
+                         alt="Your avatar here!"/>
+                </div>
+
+                <div class="table-responsive-md">
+                    <table class="table table-borderless w-100">
+                        <tr>
+                            <td class="text-left p-1 pl-4">Email: <span th:text="${employeeContact?.email}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Account: <span th:text="${userAccount?.userName}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Full name:
+                                <span th:text="${employee?.firstName eq null ? '' : employee?.firstName} + ' '
+                                + ${employee?.lastName eq null ? '' : employee?.lastName}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Job Title: <span class="font-weight-bold" th:text="${employee?.jobTitle?.jobTitleName}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">AccountStatus: <span th:text="${userAccount?.isActivated() eq true} ? 'Activated' : 'Deactivated'"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Date of Birth: <span th:text="${#temporals.format(employee?.dateOfBirth, 'dd-MMMM-yyyy')}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Created: <span th:text="${#temporals.format(userAccount?.created, 'dd-MMMM-yyyy')}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Last Modified: <span th:text="${#temporals.format(userAccount?.modified, 'dd-MMMM-yyyy')}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Last Login: <span th:text="${#temporals.format(userAccount?.lastLogged, 'dd-MMMM-yyyy')}"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="col-md-8 justify-content-left">
+                <h4 class=" mb-4 text-danger">CRF™ DEMO</h4>
+                <hr>
+                <h2 class="display-4 mb-3">myCRF™ Job Assessment Profiles</h2>
+                <p class="text-left">
+                    Dependend on your ROLE, CRF™ system will leads you to the corresponding page after signed in. If you are signed as Employee role. Start working under delegation of myCRF™ Account by name is John.Silva!
+                </p>
+                <ul class="text-left pl-4 mb-4">
+                    <li>Manage your myCRF™ profiles, click
+                        <a class="btn btn-outline-primary m-1" href="/employee/my-profiles">myCRF™ Profiles</a>
+                    </li>
+                    <li>Create new myCRF™ profile, click
+                        <a class="btn btn-outline-primary m-1" href="/employee/new-profile">Create myCRF™ Profile</a>
+                    </li>
+                </ul>
+                <h2 class="display-4 mb-3">myCRF™ Skills</h2>
+                <p class="text-left">
+                    You can now Skills Up or Re-Skills for your Career Path in organization!
+                </p>
+                <ul class="text-left pl-4 mb-4">
+                    <li>Manage Skills, click
+                        <a class="btn btn-outline-success m-1">myCRF™ Skills</a>
+                    </li>
+                    <li>Learn In-depth of Skills, click
+                        <a class="btn btn-outline-success m-1">myCRF™ Skills Up</a>
+                    </li>
+                    <li>Change Career Path or learn more skills, click
+                        <a class="btn btn-outline-success m-1">myCRF™ Re-Skills</a>
+                    </li>
+                </ul>
+                <h2 class="display-4 mb-3">myCRF™ Account</h2>
+                <p class="text-left">
+                    Thank you for choosing CRF™ system and Now you can
+                </p>
+                <ul class="text-left pl-4 mb-4" th:fragment="function">
+                    <li>Update myCRF™ account
+                        <a class="btn btn-outline-info m-1"
+                           th:href="@{/employee/update-account}">Update Account</a> and register for using CRF™ Services.
+                    </li>
+                    <li>Change account password, click
+                        <a class="btn btn-outline-info m-1"
+                           th:href="@{/employee/change-password}">Change Password</a>
+                    </li>
+                    <li>Change myCRF™ Photo, click
+                        <a class="btn btn-outline-info m-1"
+                           th:href="@{/employee/change-avatar}">Change Photo</a>
+                    </li>
+                    <li>Deactivate myCRF™ account now
+                        <a class="btn btn-outline-info m-1"
+                           th:href="@{/employee/deactivate-account}">Deactivate Account</a> in case not continue to use CRF™ Services
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+</html>

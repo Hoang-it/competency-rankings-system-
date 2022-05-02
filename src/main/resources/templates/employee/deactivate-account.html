@@ -1,0 +1,50 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Deactivate Account Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <!-- Right side content -->
+            <div class="col-md-8 justify-content-left">
+                <h2 class="display-4 mb-3">myCRF™ Account</h2>
+                <p class="text-left">
+                    Thank you for choosing CRF™ system. You can now deactivate myCRF™ account and stop using CRF™
+                    Services.
+                </p>
+                <form th:action="@{/employee/deactivate-account}" method="POST">
+                    <div class="text-left text-danger" th:text="${message}"></div>
+                    <div class="form-group">
+                        <div class="g-recaptcha mt-4 mb-5" th:data-sitekey="${@environment.getProperty('recaptcha.key.site')}"></div>
+                    </div>
+                    <hr>
+                    <p class="text-left pt-2 pb-2">Are you sure to deactivate myCRF™ account?</p>
+                    <button type="submit" class="btn btn-outline-danger m-2 mr-3" name="submit"
+                                onclick="return confirm('Are you sure? You can not log-in anymore!')">Deactivate Account</button>
+                    <a class="btn btn-info m-2" onclick="return confirm('Are you sure you wanna cancel?')"
+                       th:href="@{'/' + ${page}}">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+</html>

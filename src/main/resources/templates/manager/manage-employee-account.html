@@ -1,0 +1,200 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Manage Employee Account Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <!-- Right side content -->
+            <div class="col-md-8 justify-content-left">
+                <h2 class="display-4 mb-3">myCRF™ Account</h2>
+                <p class="text-left">
+                    Thank you for choosing CRF™ system. You can now deactivate account of employee and stop them using CRF™
+                    Services.
+                </p>
+                <p class="float-right">Display: <span id="currentItem" th:text="${list.size()}"></span> of
+                    <span id="totalItem" th:text="${listUserAccount.size()}"></span> record</p>
+                <table class="table table-hover table-responsive-md" id="employeeTable">
+                    <tr class="thead-light">
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Member/Staff</th>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    <tr th:each="employees, iterationStatus : ${list}">
+                        <th th:text="${iterationStatus.count}" th:value="${iterationStatus.count}"></th>
+                        <!-- User Name-->
+                        <td th:text="${employees?.userName}" th:id="userName_ + ${employees.userId}"></td>
+                        <!-- Full Name -->
+                        <td th:text="${employees?.getEmployee()?.firstName} + ' ' + ${employees?.getEmployee()?.lastName}"
+                            th:id="fullName_ + ${employees.userId}"></td>
+                        <!-- Job Title -->
+                        <td th:text="${employees?.getEmployee()?.getJobTitle()?.jobTitleName}" th:id="jobTitle_ + ${employees.userId}"></td>
+                        <!-- Activate or Deactivate ? -->
+                        <td th:if="${employees?.isActivated()}" th:id="status_ + ${employees.userId}">Activate</td>
+                        <td th:unless="${employees?.isActivated()}" th:id="status_ + ${employees.userId}">Deactivate</td>
+                        <!-- Action for Activate or Deactivate ? -->
+                        <td class="text-center" th:if="${employees?.isActivated()}">
+                            <a class="text-danger" href="javascript:void(0);"
+                               th:id="action_ + ${employees.userId}"
+                               th:onclick="deactivateEmployee([[${employees.userId}]])"
+                               title="Deactivate"><i class="fa fa-ban"></i></a>
+                        </td>
+                        <td class="text-center" th:unless="${employees?.isActivated()}">
+                            <a class="text-success" href="javascript:void(0);"
+                               th:id="action_ + ${employees.userId}"
+                               th:onclick="activateEmployee([[${employees.userId}]])"
+                               title="Activate"><i class="fa fa-unlock-alt"></i></a>
+                        </td>
+                        <!-- End -->
+                    </tr>
+                </table>
+                <!-- Button for paging -->
+                <a class="btn btn-outline-primary" id="loadData" onclick="loadMore()">Load more...</a>
+                <!-- Back to main page -->
+                <a class="btn btn-outline-info float-right" th:href="@{/manager}">Back</a>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+
+<script>
+    let size = 3;
+    let page = 1;
+    let record = 0;
+    let totalRecord = $('#totalItem').text();
+    function loadMore() {
+        $.ajax({
+            contentType: 'application/json;charset=utf-8',
+            type: 'GET',
+            url: '/manager/paging?page=' + page + '&size=' + size,
+            success: function (result) {
+                $.each(result, function (index, item) {
+                    /* calculate current record */
+                    record = ((page * size) + ++index);
+                    let row = "<tr>\n" +
+                                    "<th>" + record + "</th>\n" +
+                                    "<td id=\"userName_" + item.userId + "\">" + item.userName + "</td>\n" +
+                                    "<td id=\"fullName_" + item.userId + "\">" + item.employee.firstName + ' ' + item.employee.lastName + "</td>\n" +
+                                    "<td id=\"jobTitle_" + item.userId + "\">" + item.employee.jobTitle.jobTitleName + "</td>\n"
+                    let row_activated = "";
+                    if (item.activated === true) {
+                        row_activated += "<td id=\"status_" + item.userId + "\">Activate</td>\n" +
+                            "<td class=\"text-center\">\n" +
+                                "<a class=\"text-danger pr-2\" href=\"javascript:void(0);\" " +
+                                "id=\"action_" + item.userId + "\" onclick=\"deactivateEmployee(" + item.userId + ")\" title=\"Deactivate\">" +
+                                "<i class=\"fa fa-ban\"></i></a>\n" +
+                            "</td>\n" +
+                            "</tr>";
+                    } else {
+                        row_activated += "<td id=\"status_" + item.userId + "\">Deactivate</td>\n" +
+                            "<td class=\"text-center\">\n" +
+                                "<a class=\"text-success pr-2\" href=\"javascript:void(0);\" " +
+                                "id=\"action_" + item.userId + "\" onclick=\"activateEmployee(" + item.userId + ")\" title=\"Activate\">" +
+                                "<i class=\"fa fa-unlock-alt\"></i></a>\n" +
+                            "</td>\n" +
+                            "</tr>";
+                    }
+                    $('#employeeTable').append(row.concat(row_activated));
+                })
+                page++;
+
+                /* get total of current Record and display them */
+                let currentRecord = "<span id='currentItem'>" + record + "</span>";
+                $('#currentItem').replaceWith(currentRecord);
+
+                /* check current Record and totalRecord, then Hide loadMore button when the data get maximum record */
+                if (record == totalRecord) {
+                    let disableBtn = "<a class=\"d-none\"></a>";
+                    $('#loadData').replaceWith(disableBtn);
+                }
+            },
+            fail: function (xhr, textStatus, errorThrown) {
+                alert('Failed');
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.status);
+                alert(errorThrown);
+            }
+        })
+    }
+
+    function activateEmployee(userId) {
+        if (confirm('Do you want to activate this account?')) {
+            $.ajax({
+                contentType: 'application/json;charset=utf-8',
+                type: 'PUT',
+                url: '/manager/activate-employee?id=' + userId,
+                success: function () {
+                    let statusId = "status_" + userId;
+                    let actionId = "action_" + userId;
+                    let statusInput = "<td id=" + statusId + ">Activate</td>";
+                    let actionInput = "<a class=\"text-danger pr-2\" href=\"javascript:void(0);\" " +
+                        "id=" + actionId + " onClick=deactivateEmployee(" + userId + ") title=\"Deactivate\">" +
+                        "<i class=\"fa fa-ban\"></i></a>";
+                    $('#' + statusId).replaceWith(statusInput);
+                    $('#' + actionId).replaceWith(actionInput);
+                    alert("UserAccount has been activated!");
+                },
+                fail: function (xhr, textStatus, errorThrown) {
+                    alert('Failed');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(xhr.status);
+                    alert(errorThrown);
+                }
+            })
+        }
+    }
+
+    function deactivateEmployee(userId) {
+        if (confirm('Do you want to deactivate this account?')) {
+            $.ajax({
+                contentType: 'application/json;charset=utf-8',
+                type: 'PUT',
+                url: '/manager/deactivate-employee?id=' + userId,
+                success: function () {
+                    let statusId = "status_" + userId;
+                    let actionId = "action_" + userId;
+                    let statusInput = "<td id=" + statusId + ">Deactivate</td>";
+                    let actionInput = "<a class=\"text-success pr-2\" href=\"javascript:void(0);\" " +
+                        "id=" + actionId + " onClick=activateEmployee(" + userId + ") title=\"Activate\">" +
+                        "<i class=\"fa fa-unlock-alt\"></i></a>";
+                    $('#' + statusId).replaceWith(statusInput);
+                    $('#' + actionId).replaceWith(actionInput);
+                    alert("UserAccount has been deactivated!");
+                },
+                fail: function (xhr, textStatus, errorThrown) {
+                    alert('Failed');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(xhr.status);
+                    alert(errorThrown);
+                }
+            })
+        }
+    }
+</script>
+
+</body>
+</html>

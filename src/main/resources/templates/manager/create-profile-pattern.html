@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Profile Pattern Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                <h2 class="mbr-fonts-style mbr-title pb-3 display-4 text-left">Create New Profile Pattern</h2>
+
+                <h5 class="mbr-fonts-style mbr-title text-left">Start creating CRF™ Profile Pattern now.<br></h5><br>
+
+
+                <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                    <li>Copy new profile Pattern from CRF™'s Pattern.</li>
+                    <li>Clone Professional Skills and Contributions.</li>
+                    <li>Clone Engineering and Non-Engineering Skills</li>
+                </ul>
+                <form method="post" th:action="@{/profile-patterns/new-pattern?location=0}">
+                    <table class="table table-borderless table-responsive-md">
+                    <tr>
+                        <td class="text-left" nowrap="">Pattern For Period:</td>
+                        <td class="text-left" nowrap="">
+                            <select name='periodId' id="periodId">
+                                <option th:each="period : ${periods}" th:value="${period.periodId}" th:text="${period.periodName}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">Available Job Title:</td>
+                        <td class="text-left" nowrap="">
+                            <select name="jobTitleId" id="jobTitleId">
+                                <option th:each="jobTitle : ${jobTitles}" th:value="${jobTitle.jobTitleId}" th:text="${jobTitle.jobTitleName}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="" style="width:20%;">Profile Pattern By:</td>
+                        <td class="text-left">
+                            <input type="radio" name="template" value="1" size="35" maxlength="100" checked="">&nbsp;CRF™ Profile Pattern&nbsp;
+                            <input type="radio" name="template" disabled="" value="2" size="35" maxlength="100">&nbsp;Preliminary Pattern (TBD)<br>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">&nbsp;</td>
+                        <td class="text-left" nowrap="">
+                            <button th:type="submid" class="btn btn-secondary">Create Pattern</button>
+                            <a th:href="@{/profile-patterns/profile-pattern}" href="" class="btn btn-outline-info" role="button">Cancel</a></td>
+                    </tr>
+                </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+</html>

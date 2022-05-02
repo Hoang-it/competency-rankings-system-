@@ -1,0 +1,75 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Employee Page</title>
+</head>
+
+<body>
+
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div id="pid" style="display: none;visibility: hidden" th:text="${profile.getRankingProfileId()}"></div>
+            <!-- LEFT SIDE INFOMATION-->
+            <div th:replace="/employee/employee.html :: userInfor" ></div>
+
+            <!-- CONTENT -->
+            <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                <h2 class="mbr-fonts-style mbr-title pb-3 display-2 text-left">Delete <span></span> Profile</h2>
+
+                <h5 class="mbr-fonts-style mbr-title text-left">Are you sure to delete this profile?<br></h5>
+
+                <table border="0" class="align-center" style="width:100%;">
+                    <tbody><tr>
+                        <td class="text-left" nowrap="">Profile title: </td><td class="text-left" ><b th:text="${profile.getTitle()}">Java and Oracle Engineer.</b></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">For Period:</td><td class="text-left" nowrap="" th:text="${profile.getPeriod().getPeriodName()}"><b>S2-2020</b></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">Created:</td><td class="text-left" nowrap="" th:text="${profile.getCreated()}"><b>01/June/2020</b></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">Status:</td><td class="text-left" nowrap="" th:text="${profile.getStatusType().statusTypeName}"><b>Submitted</b></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" colspan="2">Once you choose Delete Profile button, the CRF system will delete your profile.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">&nbsp;</td><td class="text-left" nowrap="">
+                        <a class="btn btn-black" id="delete" role="button">Delete Profile</a>
+                        <a href="/employee/my-profiles" class="btn btn-black-outline" role="button">Cancel</a></td>
+                    </tr>
+                    </tbody></table>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    $("#delete").click(function (){
+        alert("Delete?")
+        $.ajax({
+            url: 'http://localhost:8080/profile/delete?pid=' + $("#pid").text(),
+            type: 'DELETE',
+            success: function(result) {
+                window.location.href = "/employee/my-profiles";
+
+            }
+        })
+    })
+
+</script>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

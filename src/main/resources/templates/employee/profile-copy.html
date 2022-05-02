@@ -1,0 +1,78 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Employee Page</title>
+</head>
+
+<body>
+
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div id="pid" style="display: none;visibility: hidden" th:text="${profile.getRankingProfileId()}"></div>
+            <!-- LEFT SIDE INFOMATION-->
+            <div th:replace="/employee/employee.html :: userInfor" ></div>
+
+            <!-- CONTENT -->
+            <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                <h2 class="mbr-fonts-style mbr-title pb-3 display-2 text-left">Copy myCRF™ <span></span> Profile</h2>
+
+                <h5 class="mbr-fonts-style mbr-title text-left">Start copying myCRF™ Profile now.<br></h5><br>
+
+
+                <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                    <li>Copy myCRF™ profile: Period and Comments.</li>
+                    <li>Copy Professional Skills and Contributions.</li>
+                    <li>Copy Engineering and Non-Engineering Skills</li>
+                </ul>
+                <table border="0" class="align-center" style="width:100%;">
+                    <tbody><tr>
+                        <td class="text-left" nowrap="" style="width:15%;">Profile title:</td><td class="text-left" nowrap="" th:text="${profile.getTitle()}"><b>Java and Oracle Engineer.</b></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">For Period:</td><td class="text-left" nowrap=""><select><option value="S2-2020">S2-2020.</option><option value="S1-2021">S2-2020.</option></select></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">Profile title:</td><td class="text-left" nowrap=""><input type="text" disabled="" value="JavaFX and Oracle Engineer" size="23" maxlength="100"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left" nowrap="">&nbsp;</td><td class="text-left" nowrap="">
+                        <a id="copy" class="btn btn-black" role="button">Copy Profile</a>
+                        <a href="/employee/my-profiles" class="btn btn-black-outline" role="button">Cancel</a></td>
+                    </tr>
+                    </tbody></table><br>
+                <p class="mbr-fonts-style mbr-text display-7 text-center"><i>Note: You have renamed the title of profile from "Java and Oracle Engineer." to "JavaFX and Oracle Engineer"</i></p>
+
+
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    $("#copy").click(function (){
+        alert("Copy?")
+        $.ajax({
+            url: 'http://localhost:8080/profile/copy?pid=' + $("#pid").text(),
+            type: 'POST',
+            success: function(result) {
+                window.location.href = "/employee/my-profiles";
+
+            }
+        })
+    })
+
+</script>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

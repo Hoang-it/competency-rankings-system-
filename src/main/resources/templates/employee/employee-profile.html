@@ -1,0 +1,89 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+
+    <title>Employee Profile</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- LEFT SIDE INFOMATION-->
+            <div th:replace="/employee/employee.html :: userInfor" ></div>
+
+            <!-- CONTENT -->
+            <p id="employeeId" th:text="${employee.getEmployeeId()}" style="visibility: hidden;  display: none;"></p>
+            <div class="col-md-8 col-sm-12 text-section align-center">
+                <h2 class="mbr-fonts-style mbr-title pb-3 display-2 text-left">myCRF™ <span ></span> Profiles</h2>
+
+                <h5 class="mbr-fonts-style mbr-title text-left">Start creating myCRF™ Profile now.<br></h5><br>
+                <a class="btn btn-outline-success" href="/employee/new-profile">Create New Profile</a><br>
+                <p class="mbr-fonts-style mbr-text display-7 text-left">myCRF™ Profiles.</p>
+                <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                    <li>To VIEW profile summary, please click on Summary icon <img src="/icons/approve.png" style="width:18px;" title="Summary" alt="approve icon"/></li>
+                    <li>To UPDATE your profile, please click on Edit icon <img src="/icons/edit.png" style="width:18px;" title="Edit" alt="edit icon"/></li>
+                    <li>To COPY existing profile, please click on Copy icon <img src="/icons/copy.png" style="width:18px;" title="Copy" alt="copy icon"/></li>
+                    <li>To DELETE existing profile, please click on Delete icon <img src="/icons/delete.png" style="width:18px;" title="Delete" alt="delete icon"/></li>
+                </ul>
+
+                <table class="table table-borderless table-responsive-md" id="profileTable">
+                    <tr style="background-color:#66F5F5;">
+                        <td class="text-left" nowrap>Profile Title</td>
+                        <td class="text-left" nowrap>Period</td>
+                        <td class="text-left vertical-menu" nowrap>Created</td>
+                        <td class="text-left" nowrap>Status</td>
+                        <td class="text-left vertical-menu" nowrap>New Rank</td>
+                        <td class="text-left vertical-menu" nowrap>Action</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+        }
+    }
+    id = $("#employeeId").text()
+    $.getJSON( "http://localhost:8080/master/profile?id=" + id, function( data ) {
+
+        $.each( data, function( key, val ) {
+            $("#profileTable").append(
+                "<tr>"
+                    + "<td class=\"text-left\">" + val.profileName + "<br className=\"horizonal-menu\">" + "</td>"
+                    + "<td class=\"text-left\">" + val.preriodName  + "</td>"
+                    + "<td class=\"text-left\">" + val.created + "</td>"
+                    + "<td class=\"text-left\">" + val.statusName  + "</td>"
+                    + "<td class=\"text-left\">" + val.rank + "</td>"
+                    + "<td class=\"text-left\">" + val.profileName + "<br className=\"horizonal-menu\">"
+                        + "<a href=\"/employee/profile/edit?mode=summary&id=" + val.profileId +"\">" + "<i class=\"fa fa-file-text\" style=\"font-size:20px;\" title=\"Summary\"></i>" + "</a>"
+                        + "<a href=\"/employee/profile/edit?mode=normal&id=" + val.profileId +"\">" + "<i class=\"fa fa-edit\" style=\"font-size:20px;\" title=\"Edit\"></i>" + "</a>"
+                        + "<a href=\"/employee/profile/copy?id=" + val.profileId + "\">" + "<i class=\"fa fa-copy\" style=\"font-size:20px;\" title=\"Copy\"></i>" + "</a>"
+                        + "<a href=\"/employee/profile/delete?id=" + val.profileId + "\">" + "<i class=\"fa fa-trash\" style=\"font-size:20px;\" title=\"Delete\"></i>" + "</a>"
+
+                    + "</td>"
+                + "</tr>"
+            );
+        });
+    });
+
+</script>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

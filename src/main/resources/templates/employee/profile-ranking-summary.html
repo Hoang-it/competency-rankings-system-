@@ -1,0 +1,215 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>>
+    <title>Profile Ranking Summary Page</title>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="navbar-brand">
+                <a class="" href="#">
+                    <img src="/image/brand-logo.jpg" width="50px" height="50px" class="d-inline-block align-top" />
+                </a>
+                <a class="text-light" href="">Get Started FREE, Now!</a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse ml-auto" id="navbarToggle">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          My Account
+                        </a>
+                        <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-light" href="#">My Account</a>
+                            <a class="dropdown-item text-light" href="#">Edit my Account</a>
+                            <a class="dropdown-item text-light" href="#">Change my Password</a>
+                            <a class="dropdown-item text-light" href="#">Deactivate my Account</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          My Skills
+                        </a>
+                        <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-light" href="#">My Skills</a>
+                            <a class="dropdown-item text-light" href="#">My Skills Up</a>
+                            <a class="dropdown-item text-light" href="#">My Re-Skills</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          edXOps
+                        </a>
+                        <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item text-light" href="#">Production-like Project</a>
+                            <a class="dropdown-item text-light" href="#">Online Bootcamp</a>
+                            <a class="dropdown-item text-light" href="#">edXOps Certifications</a>
+                            <a class="dropdown-item text-light" href="#">Learning Pathways</a>
+                            <a class="dropdown-item text-light" href="#">Skill Chains</a>
+                            <a class="dropdown-item text-light" href="#">Tools and Apps</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4 align-center bg-light">
+                    <h2 class="d-flex justify-content-center display-4 mb-4">myCRF™ Account</h2>
+                    <p class="text-center">
+                        <a class="btn btn-outline-dark p-2" href="#">Sign - Out!</a>
+                    </p>
+                    <p class="text-center">
+                        <img class="w-100" src="/image/Hulk.jpg" />
+                    </p>
+                    <div class="table-responsive-md">
+                        <table class="table table-borderless w-100">
+                            <tr>
+                                <td class="text-left p-1 pl-4">Email: Demo@gmail.com</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left p-1 pl-4">Account: Demo Account</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left p-1 pl-4">Job Title: <span class="font-weight-bold">Software Engineer</span></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left p-1 pl-4">AccountStatus: Activated</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left p-1 pl-4">Created: 18-March-2019</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left p-1 pl-4">Last Modified: 18-March-2020</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left p-1 pl-4">Last Login: 18-March-2020</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                    <h2 class="mbr-fonts-style mbr-title pb-3 display-4 text-left">myCRF™ Summary Profile</h2>
+                    <div class="container">
+                        <div class="row justify-content-center content-center vertical-menu">
+                            <div class="col-md-6 text-section align-left" style="padding:10px;">
+                                Self-Assessment
+                                <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                                    <li>Period: <b>S2-2020</b></li>
+                                    <li>Current Rank: <b>Senior Engineer</b></li>
+                                    <li>Ranked Points: <b>68</b></li>
+                                    <li>Ranked Rank: <b><u>Principle Software Engineer</u></b></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 text-section align-left" style="padding:10px;">
+                                Reviewed By: David PH Carik-Project Manager
+                                <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                                    <li>Status: <b>Reviewed</b></li>
+                                    <li>Reviewed Points: <b>79</b></li>
+                                    <li>Reviewed: <b><u>Principle Software Engineer</u></b></li>
+                                    <li>Approved: <b><u>Principle Software Engineer</u></b></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center content-center vertical-menu">
+                            <div class="col-md-12 text-section align-left" style="padding:10px;">
+                                <p class="mbr-fonts-style mbr-text display-7 text-center">---<a title="Responsibilities and Roles" href="/NewProfile/">🔵</a>---<a title="Business Contributions" href="/NewProfile/BusinessContributions/">🔵</a>---<a title="Professional Skills" href="/NewProfile/ProfessionalSkills/">🔵</a>---
+                                    <a title="Engineering Skills" href="/NewProfile/EngineeringSkills">🔵</a>---<a title="NonEngineeringSkills" href="/NewProfile/NonEngineeringSkills/">🔵</a>---<a title="NaturalLanguage Skills" href="/NewProfile/NaturalLanguageSkills/">🔵</a>---
+                                    <a title="Knowledge and Education" href="/NewProfile/KnowledgeDegrees/">🔵</a>---🔴---
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center content-center">
+                            <div class="col-md-6 text-section align-left" style="padding:10px;">
+                                <h2 class="mbr-fonts-style mbr-title pb-3 display-5 text-left">myCRF™ Self-Ranked Summary</h2>
+                                <table border="0" class="align-center" style="width:100%;">
+                                    <tbody>
+                                        <tr tr-click="table-row-0" style="background-color:#F6F5F5;">
+                                            <td class="text-left">Component Name</td>
+                                            <td class="text-left align-top" nowrap="" style="width:10%;">Weight</td>
+                                            <td class="text-left align-top" nowrap="" style="width:10%;">Ranked</td>
+                                        </tr>
+                                        <tr tr-click="table-row-0" style="background-color:#F6F5F5;">
+                                            <td class="text-left" nowrap="">Responsibilities and Duties</td>
+                                            <td class="text-left align-top" nowrap="" style="width:10%;">15%</td>
+                                            <td class="text-left align-top" nowrap="" style="width:10%;">5.6</td>
+                                        </tr>
+                                        <tr tr-click="table-row-1" style="background-color:#EEEDED;">
+                                            <td class="text-left">Job Roles</td>
+                                            <td class="text-left align-top" nowrap="">5%</td>
+                                            <td class="text-left align-top" nowrap="">3.2</td>
+                                        </tr>
+                                        <tr tr-click="table-row-2" style="background-color:#EEEDED;">
+                                            <td class="text-left">Business Contributions</td>
+                                            <td class="text-left align-top" nowrap="">15%</td>
+                                            <td class="text-left align-top" nowrap="">3.8</td>
+                                        </tr>
+                                        <tr tr-click="table-row-3" style="background-color:#E7E7E7;">
+                                            <td class="text-left">Professional Skills</td>
+                                            <td class="text-left align-top" nowrap="">20%</td>
+                                            <td class="text-left align-top" nowrap="">1.4</td>
+                                        </tr>
+
+                                        <tr tr-click="table-row-4" style="background-color:#E1DFDF;">
+                                            <td class="text-left">Adv. Engineering Skills</td>
+                                            <td class="text-left align-top" nowrap="">10%</td>
+                                            <td class="text-left align-top" nowrap="">1.2</td>
+                                        </tr>
+                                        <tr tr-click="table-row-5" style="background-color:#DBDADA;">
+                                            <td class="text-left">Non-Engineering Skills</td>
+                                            <td class="text-left align-top" nowrap="">15%</td>
+                                            <td class="text-left align-top" nowrap="">1.8</td>
+                                        </tr>
+                                        <tr tr-click="table-row-6" style="background-color:#D3D2D2;">
+                                            <td class="text-left">Foreign Language Skills</td>
+                                            <td class="text-left align-top" nowrap="">10%</td>
+                                            <td class="text-left align-top" nowrap="">3.4</td>
+                                        </tr>
+                                        <tr tr-click="table-row-7" style="background-color:#C8C5C5;">
+                                            <td class="text-left">Education and Knowledge</td>
+                                            <td class="text-left align-top" nowrap="">10%</td>
+                                            <td class="text-left align-top" nowrap="">1.8</td>
+                                        </tr>
+                                    </tbody>
+                                </table><br>
+                            </div>
+                            <div class="col-md-6 text-section align-center content-center" style="padding:10px;">
+                                <h2 class="mbr-fonts-style mbr-title pb-3 display-5 text-center">myCRF™ Self-Ranked Radar Chart</h2>
+                                <img src="/images/JobAssessments.png" style="width:100%">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer of Page -->
+    <div th:replace="my-teamplate.html :: footer"></div>>
+
+</body>
+
+</html>

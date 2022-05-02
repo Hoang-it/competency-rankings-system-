@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Profile Pattern Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <!-- CONTENT -->
+            <div class="col-md-8 justify-content-left">
+                <h4 class="text-left mb-4">Start monitoring CRF™ Profile Patterns now.</h4>
+                <a class="btn btn-outline-primary m-1 mb-4 ml-2" th:href="@{/profile-patterns/new-pattern}">Create New Profile Pattern</a>
+                <a class="btn btn-outline-success m-1 mb-4 ml-2" th:href="@{/profile-patterns/new-period}">Create New Period</a>
+                <p class="text-left">
+                    CRF™ Profile Patterns.
+                </p>
+                <ul class="text-left pl-4 mb-4">
+                    <li>To update your profile pattern, please click on Edit icon
+                        <i class="fa fa-edit" style="font-size: 20px;"></i>
+                    </li>
+                    <li>To copy existing profile pattern, please click on Copy icon
+                        <i class="fa fa-copy" style="font-size: 20px;"></i>
+                    </li>
+                    <li>To delete existing profile pattern, please click on Delete icon
+                        <i class="fa fa-trash" style="font-size: 20px;"></i>
+                    </li>
+                </ul>
+                <select class="form-control w-25 mb-4" id="sortBy">
+                    <option selected value="">All</option>
+                    <option value="c.patternName">Pattern Name</option>
+                    <option value="p.periodName">Period</option>
+                    <option value="c.created">Created</option>
+                    <option value="s.statusTypeName">Status</option>
+                </select>
+                <div class="table-responsive-lg">
+                    <table id="patternTable">
+                        <!-- Datatable Insert Data here! -->
+                    </table>
+                </div>
+                <a class="btn btn-primary" th:href="@{/manager}">Back</a>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+<script>
+    let tableDB = $('#patternTable').DataTable({
+        processing: true,
+        serverSide: true,
+        pageLength: 4,
+        lengthMenu: [ [5, 10, 25, 50, 100], [5, 10, 25, 50, 100] ],
+        ajax: {
+            url: '/profile-patterns/profile-pattern/findAll',
+            data: function ( d ) {
+                return $.extend( {}, d, {
+                    "filter_option" : $('#sortBy').val()
+                } );
+            }
+        },
+        columns: [
+            {title: 'Profile Pattern Name', data: 'patternName'},
+            {title: 'Period', data: 'period'},
+            {title: 'Created', data: 'created'},
+            {title: 'Status', data: 'status'},
+            {title: 'Action', data: 'null',
+                'render' : function (data, type, row) {
+                    let checkStatus = "<a class=\"text-warning\"\n" +
+                        "href=\"/profile-patterns/new-pattern-detail?location=0&patternId=" + row.patternId + "\">\n" +
+                        " <i class=\"fa fa-edit\" style=\"font-size: 20px;\"></i>&nbsp;</a>";
+                    if(row.status == 'Approved') {
+                        checkStatus = "";
+                    }
+                    return checkStatus +
+                        "<a class=\"text-info\"\n" +
+                        "href=\"/profile-patterns/copy-pattern?patternId=" + row.patternId + "\">\n" +
+                        " <i class=\"fa fa-copy\" style=\"font-size: 20px;\"></i>&nbsp;</a>" +
+                        "<a class=\"text-danger\"\n" +
+                        "href='javascript:void(0);' id='row_" + row.patternId +"' onclick='deleteRow(" + row.patternId + ")'>\n" +
+                        " <i class=\"fa fa-trash\" style=\"font-size: 20px;\"></i>&nbsp;</a>"
+                }
+            },
+        ]
+    });
+    $(document).ready(function() {
+        $('#sortBy').change(function() {
+            tableDB.draw();
+        })
+        $('#patternTable').addClass('table table-hover table-responsive-md');
+        $('#patternTable thead').addClass('thead-light');
+    })
+
+    function deleteRow(patternId) {
+        if (confirm('Do you want to delete this Pattern?')) {
+            $.ajax({
+                type: 'DELETE',
+                url: '/profile-patterns/delete-pattern?patternId=' + patternId,
+                success: function () {
+                    $('#row_' + patternId).closest("tr").remove();
+                    alert('The pattern is deleted!');
+                },
+                fail: function (xhr, textStatus, errorThrown) {
+                    alert('request failed');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(xhr.status);
+                    alert(errorThrown);
+                }
+            })
+        }
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Re-skill Selection</title>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-brand">
+            <a class="" href="#">
+                <img src="/image/brand-logo.jpg" width="50px" height="50px" class="d-inline-block align-top" />
+            </a>
+            <a class="text-light" href="">Get Started FREE, Now!</a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse ml-auto" id="navbarToggle">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Account
+                    </a>
+                    <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-light" href="#">My Account</a>
+                        <a class="dropdown-item text-light" href="#">Edit my Account</a>
+                        <a class="dropdown-item text-light" href="#">Change my Password</a>
+                        <a class="dropdown-item text-light" href="#">Deactivate my Account</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Skills
+                    </a>
+                    <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-light" href="#">My Skills</a>
+                        <a class="dropdown-item text-light" href="#">My Skills Up</a>
+                        <a class="dropdown-item text-light" href="#">My Re-Skills</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        edXOps
+                    </a>
+                    <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-light" href="#">Production-like Project</a>
+                        <a class="dropdown-item text-light" href="#">Online Bootcamp</a>
+                        <a class="dropdown-item text-light" href="#">edXOps Certifications</a>
+                        <a class="dropdown-item text-light" href="#">Learning Pathways</a>
+                        <a class="dropdown-item text-light" href="#">Skill Chains</a>
+                        <a class="dropdown-item text-light" href="#">Tools and Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 align-center bg-light">
+                <h2 class="display-4 mb-4">myCRF™ Account</h2>
+                <p class="text-center">
+                    <a class="btn btn-outline-dark p-2" href="#">Sign - Out!</a>
+                </p>
+                <p class="text-center">
+                    <img class="w-100" src="/image/Hulk.jpg" />
+                </p>
+                <div class="table-responsive-md">
+                    <table class="table table-borderless w-100">
+                        <tr>
+                            <td class="text-left p-1 pl-4">Email: Demo@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Account: Demo Account</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Job Title: <span class="font-weight-bold">Software Engineer</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">AccountStatus: Activated</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Created: 18-March-2019</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Last Modified: 18-March-2020</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Last Login: 18-March-2020</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                <h3 class="mbr-fonts-style mbr-title display-4 text-left">myCRF™ Skills</h3>
+                <hr>
+                <h2 class="mbr-fonts-style mbr-title display-5 text-left">Job Role: Software Engineer</h2>
+                <h2 class="mbr-fonts-style mbr-title pb-3 display-5 text-left">Reskilled for: Other Platform</h2>
+                <div class="container" style="padding-left:0px;">
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-12 align-left">
+                            <p class="mbr-text mbr-light text-left display-7"><b>Software Engineering Skills to be ReSkills:</b></p>
+                            <div class="mbr-text pb-2 mbr-light text-left">
+                                <table border="0" class="align-center" style="width:100%;cellpadding:3px;cellspacing:3px">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left"><input type="radio" name="engineering" id="ReSkills" class="field-input" checked="" value="0"> .NET Technology <br class="horizonal-menu"><input type="radio" name="engineering" id="ReSkills" class="field-input"
+                                                                                                                                                                                                               value="1"> PHP Platform <br class="horizonal-menu"><input type="radio" name="engineering" id="ReSkills" class="field-input" value="2"> Python Platform</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr>
+                            <p class="mbr-text mbr-light text-left display-7"><b>Software Non-Engineering Courses to be ReSkills:</b></p>
+                            <div class="mbr-text pb-2 mbr-light text-left">
+                                <table border="0" class="align-center" style="width:100%;cellpadding:3px;cellspacing:3px">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left"><input type="radio" name="engineering" id="ReSkills" class="field-input" value="3"> Project Management <br class="horizonal-menu"><input type="radio" name="engineering" id="ReSkills" class="field-input"
+                                                                                                                                                                                                       value="4"> Business Analysis</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left"><input type="radio" name="engineering" id="ReSkills" class="field-input" value="5"> ERP Functional Consultant <br class="horizonal-menu"><input type="radio" name="engineering" id="ReSkills" class="field-input"
+                                                                                                                                                                                                              value="6"> SAP ERP Application Consultant</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr>
+                            <p nowrap="" class="text-left">
+                                <a href="/MySkills/#nav-ds-assigment-tab" class="btn btn-black">Complete</a>
+                                <a id="goto-url" href="/MySkills/ReSkills/net/" onclick="return assignReSkills();" class="btn btn-black">Go to my ReSkill Statistic</a><br>
+                            </p>
+                            <br>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>>
+
+</body>
+
+</html>

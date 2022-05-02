@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Profile Pattern Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+            <!-- Content -->
+            <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                <h3 class="mbr-fonts-style mbr-title text-left">CRF™ Profile Pattern Summary</h3>
+                <div class="container">
+                    <div class="row justify-content-center content-center">
+                        <div class="col-md-6 text-section align-left" style="padding:10px;">
+                            <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                                <li>Apply for Period: <b>S2-2020</b></li>
+                                <li>CRF™ Profile Pattern: <b>Software Engineer.</b></li>
+                                <li>Created: <b>1/June/2020</b></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 text-section align-left" style="padding:10px;">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row justify-content-center content-center">
+                        <div class="col-md-12 text-section align-left" style="padding:10px;">
+                            <p class="mbr-fonts-style mbr-text display-7 text-center">
+                                ---<a title="Responsibilities and Roles"
+                                      th:href="@{/profile-patterns/new-pattern-detail(location=0,patternId=${patternId})}">🔵</a>
+                                -----<a title="Business Contributions"
+                                        th:href="@{/profile-patterns/new-pattern-detail(location=1,patternId=${patternId})}">🔵</a>
+                                -----<a title="Professional Skills"
+                                        th:href="@{/profile-patterns/new-pattern-detail(location=2,patternId=${patternId})}">🔵</a>
+                                -----<a title="Advanced Engineering Skills"
+                                        th:href="@{/profile-patterns/new-pattern-detail(location=3,patternId=${patternId})}">🔵</a>
+                                -----<a title="Non-Engineering Skills"
+                                        th:href="@{/profile-patterns/new-pattern-detail(location=4,patternId=${patternId})}">🔵</a>
+                                -----<a title="Natural Language Skills"
+                                        th:href="@{/profile-patterns/new-pattern-detail(location=5,patternId=${patternId})}">🔵</a>
+                                -----<a title="Knowledge and Education"
+                                        th:href="@{/profile-patterns/new-pattern-detail(location=6,patternId=${patternId})}">🔵</a>
+                                -----<a title="Summary"
+                                        th:href="@{/profile-patterns/new-pattern-detail(location=7,patternId=${patternId})}">🔴</a>---
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row justify-content-center content-center">
+                        <div class="col-md-12 text-section align-left" style="padding:10px;">
+                            <h3 class="mbr-fonts-style mbr-title text-left">CRF™ Profile Pattern - Software
+                                Engineer</h3>
+                            <form  th:action="@{/profile-patterns/changeStatus}" method="post" th:object="${patternWeights}">
+                                <input type="hidden" name="patternId" th:value="${patternId}">
+                                <table class="table table-borderless table-responsive-md">
+                                    <tbody>
+                                    <tr tr-click="table-row-0" style="background-color:#F6F5F5;">
+                                        <td class="text-left">Component Name</td>
+                                        <td class="text-center align-top" nowrap="" style="width:10%;">Weight</td>
+                                        <!--                                    <td class="text-center align-top" nowrap="" style="width:10%;">Evidence</td>-->
+                                        <td class="text-center align-top vertical-menu" nowrap="" style="width:10%;">
+                                            Based Point
+                                        </td>
+                                    </tr>
+                                    <th:block th:each="patternWeight: ${patternWeights}">
+
+                                        <tr>
+                                            <td>
+                                                <p th:text="${patternWeight.competencyComponent.componentName}"></p>
+                                            </td>
+                                            <td>
+                                                <p th:text="${patternWeight.weight}"></p>
+                                            </td>
+                                            <td><span th:text="${#numbers.formatDecimal(patternWeight.basePoint, 1,2, 'COMMA')}"></span>
+<!--                                                <p th:text="${patternWeight.basePoint}"></p>-->
+
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                                <br>
+                                <p class="mbr-fonts-style mbr-text display-7 text-left"><button type="submit"
+                                                                                                class="btn btn-black"
+                                                                                                role="button">Approve &amp;
+                                    Finish</button><a href="/NewProfilePattern/" class="btn btn-black-outline" role="button">Review
+                                    again</a><br></p>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center content-center">
+                        <div class="col-md-12 text-section align-left" style="padding:10px;">
+                            <i>You are now finished creating profile pattern and please check before approve this
+                                pattern.</i><br>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+
+</body>
+
+</html>

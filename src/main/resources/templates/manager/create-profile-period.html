@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Profile Period Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <div class="col-md-8 justify-content-left">
+                <h4 class="text-left mb-4">Start creating CRF™ Profile periods now.</h4>
+                <p class="text-left">
+                    CRF™ Profile Periods.
+                </p>
+                <ul class="text-left pl-4 mb-4">
+                    <li>To update your profile period, please click on the Edit
+                        <i class="fa fa-edit" style="font-size: 20px;"></i> icon
+                    </li>
+                    <li>To copy existing profile period, please click on the Copy
+                        <i class="fa fa-copy" style="font-size: 20px;"></i> icon
+                    </li>
+                    <li>To delete a specific period, please click on the Delete
+                        <i class="fa fa-trash" style="font-size: 20px;"></i> icon
+                    </li>
+                </ul>
+                <div>
+                    <form method="POST" th:action="@{/profile-patterns/newPeriodCreation}"
+                          style="display:inline-flex; flex-direction: row">
+                        <p class="m-0 mb-0 mt-2">Name</p>
+                        <a class="m-1 mb-4 ml-4">
+                            <input type="text" id="periodName" name="newPeriodName" class="form-control" size="30" placeholder="Enter period's name" />
+                        </a>
+                        <div class="m-1 mb-4 ml-4">
+                            <button type="submit" class="btn btn-success">
+                                Generate
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div style="display:flex; flex-direction: row">
+                    <a class="btn btn-outline-secondary m-1 mb-4 ml-0" th:onclick="goBack()">Back</a>
+                    <a class="btn btn-outline-info m-1 mb-4 ml-4" th:href="@{/profile-patterns/new-pattern}">Create New Profile Pattern</a>
+                </div>
+<!--                <div class="dropdown" style="display: inline-block">-->
+<!--                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownFirstMenuButton"-->
+<!--                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Choose a Category-->
+<!--                        <div class="dropdown-menu" aria-labelledby="dropdownFirstMenuButton" id="dropdownCategory">-->
+<!--                            <a class="dropdown-item">Name</a>-->
+<!--                            <a class="dropdown-item">Year</a>-->
+<!--                        </div>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="dropdown">-->
+<!--                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSecondMenuButton"-->
+<!--                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                        Order by-->
+<!--                        <div class="dropdown-menu" aria-labelledby="dropdownSecondMenuButton" id="dropdownOrder">-->
+<!--                            <a class="dropdown-item">Ascending</a>-->
+<!--                            <a class="dropdown-item">Descending</a>-->
+<!--                        </div>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <button class="btn btn-success" type="button" id="filterSearchingSubmit">-->
+<!--                    Filter-->
+<!--                </button>-->
+                <div class="table-responsive-md" th:fragment="listSearching">
+                    <form method="GET">
+                        <table class="table table-borderless w-100" id="periodList">
+<!--                            <thead class="thead-light">-->
+<!--                            <tr>-->
+<!--                                <th scope="col">ID</th>-->
+<!--                                <th scope="col">Name</th>-->
+<!--                                <th scope="col">Year</th>-->
+<!--                                <th scope="col">Actions</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr th:each="period:${periods}">-->
+<!--                                <td th:text="${period.periodId}"></td>-->
+<!--                                <td th:text="${period.periodName}" th:for="updatePeriodData"></td>-->
+<!--                                <td></td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    // $(() => {
+    //     $("#dropdownFirstMenuButton").on('click', 'div a', function(){
+    //         $("#dropdownFirstMenuButton:first-child").text($(this).text());
+    //         $("#dropdownFirstMenuButton:first-child").val($(this).text());
+    //     });
+    //
+    //     $("#dropdownSecondMenuButton").on('click', 'div a', function(){
+    //         $("#dropdownSecondMenuButton:first-child").text($(this).text());
+    //         $("#dropdownSecondMenuButton:first-child").val($(this).text());
+    //     });
+    // });
+
+    $('#periodList').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": "/profile-patterns/new-period/findAllPeriods",
+            // "type": "POST",
+            // "dataType": "json",
+            // "contentType": "application/json",
+            // "data": function (d) {
+            //     return JSON.stringify(d);
+            // }
+        },
+        "columns": [
+            {title: 'ID', data: 'periodId'},
+            {title: 'Period Name', data: 'periodName'},
+            {title: 'Created Date', data: 'created'},
+            {title: 'Actions', data: 'null',
+                'render': (data, type, row) => {
+                    return "<a href=\"/new-period/edit/id=" + row.periodId + "\" title=\"Edit\"\n>"
+                        + "<i class =\"fa fa-edit\"></i>\n" + "</a>"
+                        + "<a href=\"/new-period/copy/id=" + row.periodId + "\" title=\"Copy\"\n>"
+                        + "<i class =\"fa fa-copy\"></i>\n" + "</a>"
+                        + "<a href=\"/new-period/delete/id=" + row.periodId + "\" title=\"Delete\"\n>"
+                        + "<i class =\"fa fa-trash\"></i>\n" + "</a>"
+                }}
+        ]
+    });
+
+    function copyNewPeriodData() {
+        $("#periodList").submit(function() {
+            $.ajax({
+                type: "POST",
+                url: "/new-period/copy/" + id,
+                data: "name=" + name+ "&password=" + password,
+                success: (data) => {
+                    alert("Data has been copied successfully!");
+                },
+                error: (e) => {
+                    alert(e);
+                }
+            });
+        });
+    }
+
+    function updatePeriodData(id) {
+        $.ajax({
+            type: "PUT",
+            url: "/new-period/edit/" + id,
+            success: (data) => {
+                alert("Data has been updated successfully!");
+            },
+            error: (e) => {
+                alert(e);
+            }
+        })
+    }
+
+    function viewPeriodData() {
+        // $.ajax({
+        //     type: "GET",
+        //     url: "create-profile-period.html",
+        //     success: (data) => {
+        //         $('body').html(data);
+        //     }
+        // })
+    }
+
+    function deletePeriodData(id) {
+        $.ajax({
+            type : "DELETE",
+            url : "/new-period/delete/" + id,
+            success: (result) => {
+                alert("Data has been deleted successfully!");
+            },
+            error: (e) => {
+                alert(e);
+            }
+        });
+    }
+</script>
+
+</html>

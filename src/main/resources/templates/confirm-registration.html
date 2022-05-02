@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Confirm Registration Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-3 align-center bg-light">
+                <h2 class="display-4 mb-4">If you already have myCRF™ account.</h2>
+                <p class="text-center">
+                    <a class="btn btn-outline-primary p-2" href="#">Sign-In HERE!</a>
+                </p>
+                <p class="text-center">
+                    Please note that having an account on myCRF™ alone does not lead to automatic registrations for any CRF Credential, nor does it make you eligible for any of the CRF™ schemes or privilege offers. Individuals will have to formally register for a CRF™ Credential
+                    through their CRF™ account.
+                </p>
+            </div>
+            <div class="col-md-8 justify-content-left">
+                <h2 class="display-4 mb-4">myCRF™ Account</h2>
+                <p class="text-left text-danger mt-4 mb-4">DEMO - Activation in your Email</p>
+                <p class="text-left font-italic">
+                    Assume that after you registered myCRF™ account successful, CRF™ system sent an email of Confirmation to your mailbox: Staff: John.Silva@edxops.com or Manager: David.Carik@edxops.com, and now you can activate your account by click
+                </p>
+                <a class="btn btn-primary mt-2 mb-4"
+                   th:href="@{/set-password(token=${token})}">Set Your Password Now!</a>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

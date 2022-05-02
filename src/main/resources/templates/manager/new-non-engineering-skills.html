@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Profile Pattern Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+            <!-- Content -->
+            <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                <h3 class="mbr-fonts-style mbr-title text-left">CRF™ Profile Pattern</h3>
+                <div class="container">
+                    <div class="row justify-content-center content-center">
+                        <div class="col-md-6 text-section align-left" style="padding:10px;">
+                            <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                                <li>Apply for Period: <b>S2-2020</b></li>
+                                <li>CRF™ Profile Pattern: <b>Software Engineer.</b></li>
+                                <li>Created: <b>1/June/2020</b></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 text-section align-left" style="padding:10px;">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row justify-content-center content-center">
+                        <div class="col-md-12 text-section align-left" style="padding:10px;">
+                            <p class="mbr-fonts-style mbr-text display-7 text-center">
+                                ---<a title="Responsibilities and Roles" th:href="@{/profile-patterns/new-pattern-detail(location=0,patternId=${patternId})}">🔵</a>
+                                -----<a title="Business Contributions" th:href="@{/profile-patterns/new-pattern-detail(location=1,patternId=${patternId})}">🔵</a>
+                                -----<a title="Professional Skills" th:href="@{/profile-patterns/new-pattern-detail(location=2,patternId=${patternId})}">🔵</a>
+                                -----<a title="Advanced Engineering Skills" th:href="@{/profile-patterns/new-pattern-detail(location=3,patternId=${patternId})}">🔵</a>
+                                -----<a title="Non-Engineering Skills" th:href="@{/profile-patterns/new-pattern-detail(location=4,patternId=${patternId})}">🔴</a>
+                                -----<a title="Natural Language Skills" th:href="@{/profile-patterns/new-pattern-detail(location=5,patternId=${patternId})}">🔘</a>
+                                -----<a title="Knowledge and Education" th:href="@{/profile-patterns/new-pattern-detail(location=6,patternId=${patternId})}">🔘</a>
+                                -----<a title="Summary" th:href="@{/profile-patterns/new-pattern-detail(location=7,patternId=${patternId})}">🔘</a>---
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-center content-center">
+                        <div class="col-md-12 text-section align-left" style="padding:10px;">
+                            <h3 class="mbr-fonts-style mbr-title pb-3 display-5 text-left">Create Profile Pattern - Non-Engineering Skills</h3>
+                            <form th:action="@{/profile-patterns/create-pattern-detail}" method="post" th:object="${patternComponentListWrapper}">
+                            <table class="table table-borderless table-responsive-md">
+                                <input type="hidden" name="location" th:value="${location}" >
+                                <input type="hidden" name="patternId" th:value="${patternId}">
+                                <tbody>
+                                <tr style="background-color:#66F5F5;">
+                                    <td class="text-left">Non-Engineering Skills</td>
+
+                                    <td class="text-center">%Rate</td>
+                                    <td class="text-center align-center" nowrap="">Evidence</td>
+                                    <td class="text-center ">Maximum Level</td>
+                                    <td class="text-center vertical-menu">Action</td>
+                                </tr>
+                                <tr style="background-color:#F6F5F5;"
+                                    th:each="patternAndComponent, stat: ${patternComponentListWrapper.patternDetails}">
+                                    <td tr-click="table-row-0" class="text-left" th:text="${patternAndComponent.competencyComponentDetail.componentDetailName}">
+                                    </td>
+                                    <!-- This line is used to store competencyComponentDetail -->
+                                    <input type="hidden" th:field="*{patternDetails[__${stat.index}__].competencyComponentDetail}" />
+
+                                    <!-- This line is used to store competencyRankingPatternDetail -->
+                                    <input type="hidden" th:field="*{patternDetails[__${stat.index}__].competencyRankingPattern}" />
+
+                                    <!-- This line is used to store patternDetailAndComponentDetail id -->
+                                    <input type="hidden" th:field="*{patternDetails[__${stat.index}__].competencyPatternDetailId}" />
+
+                                    <td class="text-center" >
+                                        <input type="text" readonly class="align-center" maxlength="2" size="2" name="rankingWeight"
+                                               th:field="*{patternDetails[__${stat.index}__].weightDetail}">
+                                    </td>
+                                    <td class="text-center align-center" nowrap="">
+                                        <select style="width:100px;" name="optional" th:field="*{patternDetails[__${stat.index}__].optional}">
+                                            <option th:value="Optional">Optional</option>
+                                            <option th:value="Required">Required</option>
+                                        </select>
+                                    </td>
+                                    <td class="text-left vertical-menu" nowrap="" style="vertical-align:baseline;">
+                                        <select style="width:150px;" name="maxLevel" th:field="*{patternDetails[__${stat.index}__].maxLevel}">
+                                            <option th:each="level: *{patternDetails[__${stat.index}__].competencyComponentDetail.proficiencyLevels}" th:value="${level.proficiencyLevelName}"><p th:text="${level.proficiencyLevelName}"></p> </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button type="submit" name="delete" th:value="*{patternDetails[__${stat.index}__].competencyPatternDetailId}">delete</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <br><i>You are now can save and finish profile OR save profile and continue to define component of Natural Language Skills page.</i><br>
+                            <br>
+                                <button type="submit" class="btn btn-outline-success" name="saveAndFinish" value="finish">Save &amp; Finish</button>
+                                <button type="submit" class="btn btn-outline-secondary" name="saverAndContinue" value="continue">Save & Continue</button><br></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>>
+
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Employee Page</title>
+</head>
+
+<body>
+
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div id="empjbId" style="display: none; visibility: hidden" th:text="${employee.getJobTitle().getJobTitleId()}"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- LEFT SIDE INFOMATION-->
+            <div th:replace="/employee/employee.html :: userInfor"></div>
+
+            <!-- CONTENT -->
+            <div class="col-md-8 col-sm-12 text-section align-center" style="padding:10px;">
+                <h2 class="mbr-fonts-style mbr-title pb-3 display-4 text-left">Create New Profile</h2>
+
+                <h5 class="mbr-fonts-style mbr-title text-left">Start creating myCRF™ Profile now.<br></h5><br>
+
+                <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                    <li>Copy new profile from CRF™'s Pattern.</li>
+                    <li>Clone Professional Skills and Contributions.</li>
+                    <li>Clone Engineering and Non-Engineering Skills</li>
+                </ul>
+                <form action="/employee/create">
+                    <table class="table table-borderless table-responsive-md">
+                        <tbody>
+                            <!-- PERIOD -->
+                            <tr>
+                                <td class="text-left" nowrap="">For Period:</td>
+                                <td class="text-left" nowrap="">
+                                    <select id="period" name="period">
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <!-- TITLE -->
+                            <tr>
+                                <td class="text-left" nowrap="">
+                                    Profile title:
+                                </td>
+                                <td class="text-left" nowrap="">
+                                    <input type="text" id="profileTitle" name="profileTitle" size="23" maxlength="100">
+                                </td>
+                            </tr>
+
+                            <!-- JOB TITLE -->
+                            <tr>
+                                <td class="text-left" style="width:15%;">Profile template:</td>
+                                <td class="text-left" id="jobTittle">
+
+                                </td>
+                            </tr>
+
+                            <!-- BUTTON -->
+                            <tr>
+                                <td class="text-left" nowrap="">&nbsp;</td><td class="text-left" nowrap="">
+                                <button  id="create" class="btn btn-outline-secondary">Create Profile</button>
+                                <a href="/employee" class="btn btn-outline-info">Cancel</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    data = []
+    $.getJSON( "http://localhost:8080/master/period", function( data ) {
+        var i = 1;
+        $.each( data, function( key, val ) {
+
+            $("#period").append(
+                "<option value=\"" + val.periodName + "\">" + val.periodName + "</option>"
+            );
+            i = i + 1
+        });
+        alert($("#period").find("option:first-child").text())
+        $.getJSON( "http://localhost:8080/master/pattern?empjbId=" + $("#empjbId").text() + "&period=" + $("#period").find("option:first-child").text(), function( data ) {
+            var i = 1;
+            $.each( data, function( key, val ) {
+                $("#jobTittle").append(
+                    "<input type='radio' name='template' value=" + val.patternId + " size='35' maxLength='100'>" + val.patternName + "<br>"
+                );
+            });
+        });
+    });
+
+
+    $("#period").change(function (){
+        $("#jobTittle").empty()
+        $.getJSON( "http://localhost:8080/master/pattern?empjbId=" + $("#empjbId").text() + "&period=" + $("#period option:selected").text(), function( data ) {
+            var i = 1;
+            $.each( data, function( key, val ) {
+                $("#jobTittle").append(
+                    "<input type='radio' name='template' value=" + val.patternId + " size='35' maxLength='100'>" + val.patternName + "<br>"
+                );
+            });
+        });
+    })
+
+
+
+
+</script>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

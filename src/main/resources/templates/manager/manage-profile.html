@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Manage Profile Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <div class="col-md-8 justify-content-left">
+                <h4 class="text-left mb-4">Start monitoring unreview CRF Profiles of your members now.</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <select class="form-control" id="statusProfile">
+                            <option selected value="">All</option>
+                            <option value="2">Un-Reviewed</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-responsive-lg">
+                    <table id="profileTable">
+                    <!-- Datatable insert data here! -->
+                    </table>
+                </div>
+                <a class="btn btn-primary mt-5" th:href="@{/manager}">Back</a>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    $(document).ready(function () {
+        let table = $('#profileTable').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 2,
+            lengthMenu: [ [5, 10, 25, 50, 100, 2000], [5, 10, 25, 50, 100, 'All'] ],
+            ajax: {
+                url: '/manager/manage-profile/findAll',
+                data: function ( result ) {
+                    return $.extend( {}, result, {
+                        'filter_option': $('#statusProfile').val()
+                    } );
+                }
+            },
+            columns: [
+                {title: 'Job Title', data: 'jobTitle'},
+                {title: 'Period', data: 'period'},
+                {title: 'Member/Staff', data: 'fullName'},
+                {title: 'Submitted Rank', data: 'submittedRank', className: 'text-center'},
+                {title: 'Status', data: 'status'},
+                {title: 'Action', data: 'null',
+                    'render': function (data, type, row) {
+                        return "<a class=\"text-primary pr-2\" href='javascript:void(0);' onclick=\"printProfile(" + row.rankingProfileId + ")\">\n" +
+                            "<i class=\"fa fa-print\"></i>\n" +
+                            "</a>" +
+                            "<a class=\"text-info pr-2\"\n" +
+                            "href=\"/employee/profile/edit?mode=summary&id=" + row.rankingProfileId + "\" title=\"Summary\">\n" +
+                            "<i class=\"fa fa-file-text\"></i>\n" +
+                            "</a>" +
+                            "<a class=\"text-dark pr-2\"\n" +
+                            "href=\"/employee/profile/edit?mode=normal&id=" + row.rankingProfileId + "\" title=\"Review\">\n" +
+                            "<i class=\"fa fa-eye\"></i>\n" +
+                            "</a>\n" +
+                            "<a class=\"text-success pr-2\"\n" +
+                            "href=\"/manager/aprrove?role=ROLE_MANAGER&pid=" + row.rankingProfileId + "\" title=\"Approve\">\n" +
+                            "<i class=\"fa fa-check\"></i>\n" +
+                            "</a>\n" +
+                            "<a class=\"text-danger\"\n" +
+                            "href=\"/manager/reject?profileId=" + row.rankingProfileId + "\" title=\"Reject\">\n" +
+                            "<i class=\"fa fa-close\"></i>\n" +
+                            "</a>";
+                    }
+                },
+            ],
+            dom: 'Blfrtip',
+            buttons: [
+                {   // Print list ranking profile
+                    extend: 'print',
+                    ButtonText: 'Print',
+                    className: 'btn btn-secondary mb-3',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4 ]
+                    },
+                    customize: function ( win ) {
+                        $(win.document.body).find( 'table' ).addClass( 'table table-bordered' );
+                    }
+                },
+                {   // export file PDF list ranking profile
+                    extend: 'pdf',
+                    ButtonText: 'Export',
+                    className: 'btn btn-secondary mb-3',
+                    pageSize: 'A4',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3, 4 ]
+                    },
+                    customize: function (doc) {
+                        // console.log(doc)
+                        let row = doc.content[1].table.body.length;
+                        for (let i = 0; i < row; i++) {
+                            doc.content[1].table.body[i][0].alignment = 'center';
+                            doc.content[1].table.body[i][1].alignment = 'center';
+                            doc.content[1].table.body[i][2].alignment = 'center';
+                            doc.content[1].table.body[i][3].alignment = 'center';
+                            doc.content[1].table.body[i][4].alignment = 'center';
+                        }
+                        doc.content[1].table.widths = [ '25%', '15%', '25%', '20%', '15%' ];
+                    }
+                }
+            ]
+        });
+
+        $('#statusProfile').change(function() {
+            table.draw();
+        })
+        $('#profileTable').addClass('table table-hover table-responsive-md');
+        $('#profileTable thead').addClass('thead-light');
+    });
+
+    // Print ranking profile detail by Id profile
+    function printProfile(profileId) {
+        let w = window.open("http://localhost:8080/employee/profile/edit?mode=summary&id=" + profileId, "_blank", "width=1100, height=800");
+        let interval = setInterval(function () {
+            w.print();
+            w.close();
+            clearInterval(interval);
+        }, 4000);
+    }
+
+</script>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Jquery validator -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <link rel="shortcut icon" href="/image/brand-logo.jpg" type="image/x-icon">
+    <!-- google reCaptcha api -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <!-- Radar Chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
+    <!-- Datatable JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+
+</head>
+
+<body>
+
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-brand">
+            <a class="" href="#">
+                <img src="/image/brand-logo.jpg" width="50px" height="50px" class="d-inline-block align-top" />
+            </a>
+            <a class="text-light" href="">Get Started FREE, Now!</a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse ml-auto" id="navbarToggle">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Account
+                    </a>
+                    <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-light" href="#">My Account</a>
+                        <a class="dropdown-item text-light" href="#">Edit my Account</a>
+                        <a class="dropdown-item text-light" href="#">Change my Password</a>
+                        <a class="dropdown-item text-light" href="#">Deactivate my Account</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My Skills
+                    </a>
+                    <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-light" href="#">My Skills</a>
+                        <a class="dropdown-item text-light" href="#">My Skills Up</a>
+                        <a class="dropdown-item text-light" href="#">My Re-Skills</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        edXOps
+                    </a>
+                    <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-light" href="#">Production-like Project</a>
+                        <a class="dropdown-item text-light" href="#">Online Bootcamp</a>
+                        <a class="dropdown-item text-light" href="#">edXOps Certifications</a>
+                        <a class="dropdown-item text-light" href="#">Learning Pathways</a>
+                        <a class="dropdown-item text-light" href="#">Skill Chains</a>
+                        <a class="dropdown-item text-light" href="#">Tools and Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<footer th:fragment="footer">
+    <div class="container-fluid text-center bg-dark text-white pt-5 pb-5 pl-0 pr-0">
+        <div class="row justify-content-center">
+            <div class="col-md-4 col-sm-4 align-center">
+                <table class="ml-5 mb-4 w-75 text-left text-white">
+                    <tr>
+                        <td class="w-25 border-right pr-4" rowspan="4"><img src="/image/brand-logo.jpg" width="100vw" height="70px" /></td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">&copy; Copyright 2021</td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">HCM_FJW_03_Team03.</td>
+                    </tr>
+                    <tr>
+                        <td class="pl-4">All Rights Reserved.</td>
+                    </tr>
+                </table>
+                <a class="text text-white" href="">Terms of Service |</a>
+                <a class="text text-white " href="">Privacy Policy |</a>
+                <a class="text text-white" href="">About Us</a>
+            </div>
+            <div class="col-lg-5 align-center">
+                <p class="text text-left">
+                    Team are edXOps® - A non-profit EduTech Foundation. We believe that the methodologies and modern models as well as full packages of edXOps Online Bootcamp will bring knowledges, skills and experiences to drive the growth of your career path what market
+                    labour needs to hire.
+                </p>
+            </div>
+            <div class="col-md-3 d-flex justify-content-center">
+                <ul class="social-media">
+                    <li>
+                        <a href=""><i class="fa fa-facebook-f"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                        <a href=""><i class="fa fa-youtube"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>

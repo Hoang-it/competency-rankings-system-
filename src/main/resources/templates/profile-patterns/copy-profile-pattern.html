@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Profile Pattern Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- Left side - information of userAccount -->
+            <div th:replace="employee/employee.html :: userInfor"></div>
+
+            <!-- CONTENT -->
+            <div class="col-md-8 col-sm-12 text-section align-center">
+                <h2 class="mbr-fonts-style mbr-title pb-3 display-3 text-left">Copy CRF™ Profile Pattern</h2>
+
+                <h5 class="mbr-fonts-style mbr-title text-left">Start copying CRF™ Profile Pattern now.</h5><br>
+
+                <ul class="mbr-fonts-style mbr-text display-7 text-left">
+                    <li>Copy CRF™ profile pattern: Structure of Profile Pattern.</li>
+                    <li>Copy Professional Skills and Contributions.</li>
+                    <li>Copy Engineering and Non-Engineering Skills.</li>
+                </ul>
+                <form th:action="@{/profile-patterns/copy-pattern}" method="POST">
+                    <input type="hidden" th:value="${pattern.competencyRankingPatternId}" name="patternId">
+                    <table class="table table-borderless" style="width:100%;">
+                        <tr>
+                            <td class="text-left" style="width:30%;">Profile pattern:</td>
+                            <td class="text-left" ><b th:text="${pattern?.jobTitle?.jobTitleName}"></b></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" style="width:30%;">From Period:</td>
+                            <td class="text-left" th:text="${pattern?.period?.periodName}"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" style="width:30%;">To Period:</td>
+                            <td class="text-left">
+                                <select name="period">
+                                    <option th:each="listPeriod : ${periods}"
+                                            th:value="${listPeriod?.periodId}"
+                                            th:text="${listPeriod?.periodName}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" style="width:30%;">New Profile Pattern:</td>
+                            <td class="text-left">
+                                <select name="jobTitle">
+                                    <option th:each="newPattern : ${listPattern}"
+                                            th:value="${newPattern?.jobTitleId}"
+                                            th:text="${newPattern?.jobTitleName}">
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" style="width:30%;">&nbsp;</td>
+                            <td class="text-left" nowrap="">
+                                <button class="btn btn-secondary" type="submit">Copy Pattern</button>
+                                <a th:href="@{/profile-patterns/profile-pattern}" class="btn btn-outline-info">Cancel</a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <p class="text-left">
+                    <i>Note: You could copied the name of profile pattern from "Software Engineer." to "Software Engineer" and different the period.</i>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

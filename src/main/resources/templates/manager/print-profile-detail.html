@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <!-- Remove @media print {*, :after, :before...} in bootstrap.css or bootstrap.min.css -->
+    <!-- Because it makes the color visible in print preview -->
+    <!-- In order to display color in print preview, just remove it -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Print Profile Page</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center text-danger font-weight-bold" id="printer"
+             th:object="${profileDetails}">
+            <!-- Component 1 -->
+            <p>Responsibilities and Roles</p>
+            <table class="table table-bordered">
+                <thead class="thead-light" th:each="list : ${profileDetails}">
+                    <tr>
+                        <th>Responsibilities and Roles</th>
+                        <th>Source Information</th>
+                        <th>Weight</th>
+                        <th>Responsibility Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Demo</td>
+                        <td>Demo</td>
+                        <td>Demo</td>
+                        <td>Demo</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Component 2 -->
+            <p class="text-left font-weight-bold">Business Contributions</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Responsibilities and Roles</th>
+                    <th>Source Information</th>
+                    <th>Weight</th>
+                    <th>Responsibility Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Component 3 -->
+            <p class="text-left font-weight-bold">Professional [Software Engineering] Skills</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Responsibilities and Roles</th>
+                    <th>Source Information</th>
+                    <th>Weight</th>
+                    <th>Responsibility Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Component 4 -->
+            <p class="text-left font-weight-bold">Engineering Skills</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Responsibilities and Roles</th>
+                    <th>Source Information</th>
+                    <th>Weight</th>
+                    <th>Responsibility Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Component 5 -->
+            <p class="text-left font-weight-bold">Non-Engineering Skills</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Responsibilities and Roles</th>
+                    <th>Source Information</th>
+                    <th>Weight</th>
+                    <th>Responsibility Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Component 6 -->
+            <p class="text-left font-weight-bold">Natural Language Skills</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Responsibilities and Roles</th>
+                    <th>Source Information</th>
+                    <th>Weight</th>
+                    <th>Responsibility Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Component 7 -->
+            <p class="text-left font-weight-bold">Education and Knowledge</p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Responsibilities and Roles</th>
+                    <th>Source Information</th>
+                    <th>Weight</th>
+                    <th>Responsibility Level</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                    <td>Demo</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

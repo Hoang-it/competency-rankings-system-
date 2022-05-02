@@ -1,0 +1,113 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Meta tag -->
+    <div th:replace="my-teamplate.html :: head/meta"></div>
+    <!-- Bootstrap CSS, CSS -->
+    <div th:replace="my-teamplate.html :: head/link"></div>
+    <!-- Jquery, JavaScript -->
+    <div th:replace="my-teamplate.html :: head/script"></div>
+    <title>Administration Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 align-center bg-light">
+                <h2 class="display-4 mb-4">myCRF™ Account</h2>
+                <p class="text-center">
+                    <a class="btn btn-outline-dark p-2" href="/templates/logout.html" th:href="@{/logout}">Sign - Out!</a>
+                </p>
+                <p class="text-center">
+                    <img class="w-100" src="/image/MrSangChoi.jpg" />
+                </p>
+                <div class="table-responsive-md">
+                    <table class="table table-borderless w-100">
+                        <tr>
+                            <td class="text-left p-1 pl-4">Email: Demo@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Account: Demo Account</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Job Title: <span class="font-weight-bold">Software Engineer</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">AccountStatus: Activated</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Created: 18-March-2019</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Last Modified: 18-March-2020</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left p-1 pl-4">Last Login: 18-March-2020</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-8 justify-content-left">
+                <h4 class="text-left mb-4">Start monitoring CRF™ Profile Patterns now.</h4>
+                <a class="btn btn-outline-primary m-1 mb-4 ml-2">Create New Profile Pattern</a>
+                <p class="text-left">
+                    CRF™ Profile Patterns.
+                </p>
+                <ul class="text-left pl-4 mb-4">
+                    <li>To update your profile pattern, please click on Edit icon
+                        <i class="fa fa-edit" style="font-size: 20px;"></i>
+                    </li>
+                    <li>To copy existing profile pattern, please click on Copy icon
+                        <i class="fa fa-copy" style="font-size: 20px;"></i>
+                    </li>
+                    <li>To delete existing profile pattern, please click on Delete icon
+                        <i class="fa fa-trash" style="font-size: 20px;"></i>
+                    </li>
+                </ul>
+                <div class="table-responsive-md">
+                    <table class="table table-borderless w-100">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">User Account</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Account Status</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Demo</td>
+                            <td>Demo@gmail.com</td>
+                            <td>5-April-2021</td>
+                            <td>Activated</td>
+                            <td>
+                                <select id="role" name="role">
+                                    <option value="Employee">Employee</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Profile Pattern">Profile Pattern</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <i class="fa fa-check" style="font-size: 20px;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+
+</html>

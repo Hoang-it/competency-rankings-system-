@@ -1,0 +1,51 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <!-- Meta tag -->
+  <div th:replace="my-teamplate.html :: head/meta"></div>
+  <!-- Bootstrap CSS, CSS -->
+  <div th:replace="my-teamplate.html :: head/link"></div>
+  <!-- Jquery, JavaScript -->
+  <div th:replace="my-teamplate.html :: head/script"></div>
+  <title>Upload Avatar Page</title>
+</head>
+
+<body>
+<!-- Navigation menu -->
+<div th:replace="my-teamplate.html :: header"></div>
+<!-- Main content -->
+<main>
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <!-- Left side - information of userAccount -->
+      <div th:replace="employee/employee.html :: userInfor"></div>
+
+      <!-- Right side content -->
+      <div class="col-md-8 justify-content-left">
+        <h2 class="display-4 mb-3">Update CRF™ Photo</h2>
+        <p class="text-left">
+          You can now upload new photo of myCRF™ account.
+        </p>
+        <h4 class="text-left text-success font-weight-bold"
+            th:if="${errorMessage eq null}" th:text="${successMessage}"></h4>
+        <h4 class="text-left text-danger font-weight-bold"
+            th:if="${successMessage eq null}" th:text="${errorMessage}"></h4>
+        <form th:action="@{/employee/change-avatar}" method="POST" enctype="multipart/form-data">
+          <div class="custom-file mt-3">
+            <input type="file" name="file" id="file" accept="image/png, image/jpeg">
+            <button type="submit" class="btn btn-outline-success ml-2" id="submit"
+                    onclick="return confirm('Do you want to upload this image?')">Upload Avatar</button>
+            <small id="fileHelper" class="form-text text-muted">The Image is max-size 2MB.</small>
+            <a class="btn btn-info m-2" onclick="return confirm('Are you sure you wanna cancel?')"
+                    th:href="@{'/' + ${page}}">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Footer of Page -->
+<div th:replace="my-teamplate.html :: footer"></div>
+</body>
+</html>
